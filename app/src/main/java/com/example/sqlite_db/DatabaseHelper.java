@@ -34,5 +34,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
     }
+    public boolean insertData(String name,String lastNme ,String marks){
+        SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(COL2,name);
+        contentValues.put(COL3,lastNme);
+        contentValues.put(COL4,marks);
+       Long success= sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+       if (success==-1){
+           return  false;
+       }else {
+           return true;
+       }
+     }
 
 }

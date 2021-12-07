@@ -29,15 +29,16 @@ public class MainActivity extends AppCompatActivity {
       btnInsert.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-             boolean inserted= mdb.insertData(editname.getText().toString(),
-                      editlastname.getText().toString(),
-                      text_marks.getText().toString());
-
-             if(inserted==true){
-                 Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
-             }else {
-                 Toast.makeText(MainActivity.this, "Data Not Insert", Toast.LENGTH_SHORT).show();
-             }
+           boolean inserted= mdb.insertData(editname.getText().toString(),
+                     editlastname.getText().toString(),
+                     text_marks.getText().toString());
+           if (inserted==true){
+               Toast.makeText(MainActivity.this, "insert Data",
+                       Toast.LENGTH_SHORT).show();
+           }else {
+               Toast.makeText(MainActivity.this, "Data no insert",
+                       Toast.LENGTH_SHORT).show();
+           }
           }
       });
     }
