@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL2,name);
         contentValues.put(COL3,lastNme);
         contentValues.put(COL4,marks);
-       Long success= sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+       Long success = sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
        if (success==-1){
            return  false;
        }else {
@@ -53,5 +53,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cur=mydb.rawQuery("select * from "+TABLE_NAME,null);
         return cur;
      }
+     public boolean updatedata(String id,String name,
+                               String lastname,String marks){
+        SQLiteDatabase updateData=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(COL1,id);
+        contentValues.put(COL2,name);
+        contentValues.put(COL3,lastname);
+        contentValues.put(COL4,marks);
 
+        updateData.update(TABLE_NAME,contentValues,"ID = ?",new String[]{id});
+        return true;
+
+
+     }
 }

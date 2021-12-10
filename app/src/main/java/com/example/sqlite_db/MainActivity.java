@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +13,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper mdb;
-    EditText editname,editlastname,text_marks;
-    Button btnInsert,view_Data;
+    EditText editname,editlastname,text_marks,txt_id;
+    Button btnInsert,view_Data,btnupdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         text_marks=(EditText) findViewById(R.id.marks);
         btnInsert=(Button) findViewById(R.id.btn_insert);
         view_Data=(Button)findViewById(R.id.btn_view);
+        txt_id=(EditText)findViewById(R.id.edit_id);
+        btnupdate=(Button)findViewById(R.id.btn_update);
+
 
       btnInsert.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -59,11 +63,26 @@ public class MainActivity extends AppCompatActivity {
               StringBuffer buffer = new StringBuffer();
               while (cur.moveToNext()) {
                   buffer.append("ID" + cur.getString(0) + "\n");
-                  buffer.append("name" + cur.getString(1) + "\n");
+                    buffer.append("name" + cur.getString(1) + "\n");
                   buffer.append("lastname" + cur.getString(2) + "\n");
                   buffer.append("marks" + cur.getString(3) + "\n");
               }
-//              show("Data",buffer.toString());
+              show("Data",buffer.toString());
+          }
+      });
+      btnupdate.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              boolean isUpdate=mdb.updatedata(txt_id.getText().toString(),
+                      editname.getText().toString(),editlastname.getText().toString(),
+                      text_marks.getText().toString());
+              if(isUpdate==true){
+                  Toast.makeText(MainActivity.this, "Data Update",
+                          Toast.LENGTH_SHORT).show();
+              }else {
+                  Toast.makeText(MainActivity.this, "Data Not Update",
+                          Toast.LENGTH_SHORT).show();
+              }
           }
       });
     }
@@ -74,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(Message);
         builder.show();
     }
+
 }
