@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper mdb;
     EditText editname,editlastname,text_marks,txt_id;
-    Button btnInsert,view_Data,btnupdate;
+    Button btnInsert,view_Data,btnupdate,btndelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         view_Data=(Button)findViewById(R.id.btn_view);
         txt_id=(EditText)findViewById(R.id.edit_id);
         btnupdate=(Button)findViewById(R.id.btn_update);
+        btndelete=(Button)findViewById(R.id.btn_delete);
 
 
       btnInsert.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,19 @@ public class MainActivity extends AppCompatActivity {
                   Toast.makeText(MainActivity.this, "Data Not Update",
                           Toast.LENGTH_SHORT).show();
               }
+          }
+      });
+
+      btndelete.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+             Integer deleterow= mdb.deleteData(txt_id.getText().toString());
+             if (deleterow>0){
+                 Toast.makeText(MainActivity.this, "Data Delete", Toast.LENGTH_SHORT).show();
+
+             }else {
+                 Toast.makeText(MainActivity.this, "Data Not Delete", Toast.LENGTH_SHORT).show();
+             }
           }
       });
     }
